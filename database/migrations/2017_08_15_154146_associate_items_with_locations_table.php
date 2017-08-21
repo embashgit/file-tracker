@@ -30,8 +30,8 @@ class AssociateItemsWithLocationsTable extends Migration
     {
         Schema::table('items', function (Blueprint $table) {
             //
-            dropForeign('items_location_id_foreign');
-            dropColumn('location_id');
+            $table->dropForeign('items_location_id_foreign');
+            $table->dropColumn('location_id');
         });
     }
 }

@@ -16,7 +16,7 @@ class AssociateHistoriesWithUsers extends Migration
         Schema::table('histories', function (Blueprint $table) {
             //
             $table->integer('reciever_id')->unsigned()->index();
-            $table->integer('dipatcher_id')->unsigned()->index();
+            $table->integer('dispatcher_id')->unsigned()->index();
             $table->foreign('reciever_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('dispatcher_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
@@ -31,10 +31,10 @@ class AssociateHistoriesWithUsers extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             //
-            dropForeign('histories_dispatcher_id_foreign');
-            dropForeign('histories_reciever_id_foreign');
-            dropColumn('reciever_id');
-            dropColumn('dispatcher_id');
+            $table->dropForeign('histories_dispatcher_id_foreign');
+            $table->dropForeign('histories_reciever_id_foreign');
+            $table->dropColumn('reciever_id');
+            $table->dropColumn('dispatcher_id');
         });
     }
 }

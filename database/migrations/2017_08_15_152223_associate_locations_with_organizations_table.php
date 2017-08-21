@@ -30,8 +30,8 @@ class AssociateLocationsWithOrganizationsTable extends Migration
     {
         Schema::table('locations', function (Blueprint $table) {
             //
-            dropForeign('locations_organization_id_foreign');
-            dropColumn('organization_id');
+            $table->dropForeign('locations_organization_id_foreign');
+            $table->dropColumn('organization_id');
         });
     }
 }

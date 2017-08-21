@@ -29,8 +29,8 @@ class AssociateHistoriesWithItems extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             //
-            dropForeign('histories_item_id_foreign');
-            dropColumn('item_id');
+            $table->dropForeign('histories_item_id_foreign');
+            $table->dropColumn('item_id');
         });
     }
 }

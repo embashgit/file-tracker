@@ -12,13 +12,48 @@
 */
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
+        'gender' =>$faker->randomElement(['male','female']),
+        'mobile' =>$faker->phoneNumber,
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Models\Organization::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->company,
+        'display_name' => $faker->sentence(),
+        'description' => $faker->paragraph(),
+    ];
+});
+
+$factory->define(App\Models\Location::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->word(),
+        'description' => $faker->paragraph(),
+    ];
+});
+
+$factory->define(App\Models\Item::class, function (Faker\Generator $faker) {
+
+    return [
+        'name' => $faker->word(),
+    ];
+
+});
+
+$factory->define(App\Models\History::class, function (Faker\Generator $faker) {
+
+    return [
+        'status' => $faker->randomElement(['dispatched', 'transit', 'delivered', 'undelivered'])
+    ];
+});
+

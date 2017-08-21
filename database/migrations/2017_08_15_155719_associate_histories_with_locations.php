@@ -31,10 +31,10 @@ class AssociateHistoriesWithLocations extends Migration
     {
         Schema::table('histories', function (Blueprint $table) {
             //
-            dropForeign('histories_to_foreign');
-            dropForeign('histories_from_foreign');
-            dropColumn('to');
-            dropColumn('from');
+            $table->dropForeign('histories_to_foreign');
+            $table->dropForeign('histories_from_foreign');
+            $table->dropColumn('to');
+            $table->dropColumn('from');
         });
     }
 }
