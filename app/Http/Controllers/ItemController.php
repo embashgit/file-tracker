@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Location;
 
 class ItemController extends Controller
 {
@@ -15,9 +16,9 @@ class ItemController extends Controller
     public function index()
     {
         //
-        $items = Item::all();
+        $items = Item::orderBy('id')->paginate(10);
         
-        return view()
+        return view('manage.item.items_list', compact('items'));
         
     }
 
@@ -29,6 +30,8 @@ class ItemController extends Controller
     public function create()
     {
         //
+        $locations  = Location::pluck('name', 'id');
+        return view('manage.item.items_create', compact('locations'));
     }
 
     /**
@@ -40,6 +43,19 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $this->validate($request, [
+            'name' => 'required|unique:items,name',
+            'location' => 'required|numeric',
+        ]);
+
+        $item = Item::create([
+            'name' => $request->input('name'),
+            'location_id' => $request->input('location'),
+        ]);
+
+        return redirect()->route('items.index')->with('success', "The item <strong>$item->name</strong> has successfully been created.");
+
     }
 
     /**
@@ -51,6 +67,9 @@ class ItemController extends Controller
     public function show($id)
     {
         //
+        $item = Item::findOrFail($id);
+
+        return view('manage.item.items_delete', compact('item'));
     }
 
     /**
@@ -62,6 +81,9 @@ class ItemController extends Controller
     public function edit($id)
     {
         //
+        $item = Item::findOrFail($id);
+        $locations  = Location::pluck('name', 'id');
+        return view('manage.item.items_edit', compact('item', 'locations'));
     }
 
     /**
@@ -74,6 +96,26 @@ class ItemController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $item = Item::findOrFail($id);
+
+        if (!$item)
+        {
+            return redirect()
+                ->route('items.index')
+                ->with('warning', 'The item you are looking for has not been found.');
+        }
+
+        $this->validate($request, [
+            'name' => 'required|unique:items,name,'.$id,
+            'location' => 'required',
+        ]);
+
+        $item->name = $request->input('name');
+        $item->location_id = $request->input('location');
+
+        $item->save();
+
+        return redirect()->route('items.index')->with('success', "The <strong>Item</strong> has successfully been updated.");
     }
 
     /**
@@ -85,5 +127,17 @@ class ItemController extends Controller
     public function destroy($id)
     {
         //
+        $item = Item::findOrFail($id);
+
+        if (!$item){
+            return redirect()
+                ->route('items.index')
+                ->with('warning', 'The item you requested for was not found.');
+        }
+
+        $item->delete();
+
+        return redirect()->route('items.index')->with('success', "The <strong>Item</strong> has successfully been archived.");
     }
+    
 }

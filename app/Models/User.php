@@ -31,13 +31,13 @@ class User extends Authenticatable
 
     public function dispatched(){
 
-        $this->hasMany('App\Models\History');
+        $this->hasMany('App\Models\History', 'dispatcher_id');
     
     }
 
-    public function received(){
+    public function recieved(){
 
-        $this->hasMany('App\Models\History');
+        $this->hasMany('App\Models\History', 'reciever_id');
     
     }
 }

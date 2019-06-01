@@ -25,15 +25,15 @@ class Location extends Model
     
     }
 
-    public function to(){
+    public function histories_to(){
 
-    	return $this->hasMany('App\Models\History');
+    	return $this->hasMany('App\Models\History', 'to');
     
     }
 
-    public function from(){
+    public function histories_from(){
 
-    	return $this->hasMany('App\Models\History');
+        return $this->hasMany('App\Models\History', 'from');
     
     }
 }

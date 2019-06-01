@@ -57,3 +57,4 @@ $factory->define(App\Models\History::class, function (Faker\Generator $faker) {
     ];
 });
 
+

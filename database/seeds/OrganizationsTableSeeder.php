@@ -13,5 +13,6 @@ class OrganizationsTableSeeder extends Seeder
     {
         //
         factory(\App\Models\Organization::class, 2)->create();
+        
     }
 }

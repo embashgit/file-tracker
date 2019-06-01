@@ -14,36 +14,36 @@ class History extends Model
     	'from',
     	'item_id',
     	'dispatcher_id',
-    	'receiver_id',
+    	'reciever_id',
     ];
 
     public function item(){
 
-    	$this->belongsTo('App\Models\Item', 'item_id');
+    	return $this->belongsTo('App\Models\Item', 'item_id');
     
     }
 
     public function dispatcher(){
 
-    	$this->belongsTo('App\Models\User', 'dispatcher_id');
+    	return $this->belongsTo('App\Models\User', 'dispatcher_id');
     
     }
 
-    public function receiver(){
+    public function reciever(){
 
-    	$this->belongsTo('App\Models\User', 'receiver_id');
+    	return $this->belongsTo('App\Models\User', 'reciever_id');
     
     }
 
-    public function to(){
+    public function location_to(){
 
-    	$this->belongsTo('App\Models\Location', 'to');
+    	return $this->belongsTo('App\Models\Location', 'to');
     
     }
 
-    public function from(){
+    public function location_from(){
 
-    	$this->belongsTo('App\Models\Location', 'from');
+    	return $this->belongsTo('App\Models\Location', 'from');
     
     }
 }

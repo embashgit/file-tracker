@@ -14,12 +14,12 @@ class Item extends Model
 
     public function location(){
 
-    	$this->belongsTo('App\Models\Location', 'location_id');
+    	return $this->belongsTo('App\Models\Location', 'location_id');
     }
 
     public function histories(){
 
-    	$this->hasMany('App\Models\History');
+    	return $this->hasMany('App\Models\History');
     
     }
 }
